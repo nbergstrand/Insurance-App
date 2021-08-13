@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
     public void CreateNewCase()
     {
         activeCase = new Case();
-        activeCase.caseNumber = Random.Range(0, 1000).ToString();
+        activeCase.caseNumber = Random.Range(1, 1000).ToString();
 
 
     }
