@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 
 public class LocationPanel : MonoBehaviour, IPanel
@@ -19,6 +20,7 @@ public class LocationPanel : MonoBehaviour, IPanel
     //Map image info
     [SerializeField]
     RawImage locationImage;
+    [SerializeField]
     double xCoord, yCoord;
     [SerializeField]
     int imgSize;
@@ -88,24 +90,41 @@ public class LocationPanel : MonoBehaviour, IPanel
         }
     }
 
+    /* IEnumerator LoadMap()
+     {
+         googleURL = googleURL + "center=" + xCoord + "," + yCoord + "&zoom=" + zoom + "&size=" + imgSize + "x" + imgSize + "&key=" + apiKey;
+
+         using (WWW map = new WWW(googleURL))
+         {
+             yield return map;
+
+             if (map.error != null)
+             {
+                 Debug.LogError("Map Error:" + map.error);
+             }
+
+             locationImage.texture = map.texture;
+         }
+     }*/
+
+
     IEnumerator LoadMap()
     {
         googleURL = googleURL + "center=" + xCoord + "," + yCoord + "&zoom=" + zoom + "&size=" + imgSize + "x" + imgSize + "&key=" + apiKey;
 
-        using (WWW map = new WWW(googleURL))
+        using (UnityWebRequest map = UnityWebRequestTexture.GetTexture(googleURL))
         {
-            yield return map;
+            yield return map.SendWebRequest(); 
 
-            if (map.error != null)
+            if (map.isNetworkError || map.isHttpError)
             {
                 Debug.LogError("Map Error:" + map.error);
             }
 
-            locationImage.texture = map.texture;
+            locationImage.texture = DownloadHandlerTexture.GetContent(map);
         }
     }
 
-   
 
 
 }
