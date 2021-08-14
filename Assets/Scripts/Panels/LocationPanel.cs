@@ -12,7 +12,7 @@ public class LocationPanel : MonoBehaviour, IPanel
     public GameObject _nextPanel;
 
     [SerializeField]
-    Text caseNumberText;
+    Text _caseNumberText;
 
     [SerializeField]
     string apiKey;
@@ -33,7 +33,7 @@ public class LocationPanel : MonoBehaviour, IPanel
         
     public IEnumerator Start()
     {
-        caseNumberText.text = "CASE NUMBER: " + UIManager.Instance.activeCase.caseNumber;
+        _caseNumberText.text = "CASE NUMBER: " + UIManager.Instance.activeCase.caseNumber;
 
         Input.location.Start();
 
@@ -76,36 +76,14 @@ public class LocationPanel : MonoBehaviour, IPanel
     public void ProcessInfo()
     {
 
-        if (string.IsNullOrEmpty(notesField.text))
-        {
-            _nextPanel.SetActive(true);
-            this.gameObject.SetActive(false);
-
-        }
-        else
-        {
+            
             UIManager.Instance.activeCase.locationNotes = notesField.text;
+            UIManager.Instance.activeCase.locationImage = locationImage;
             _nextPanel.SetActive(true);
             this.gameObject.SetActive(false);
-        }
+        
     }
 
-    /* IEnumerator LoadMap()
-     {
-         googleURL = googleURL + "center=" + xCoord + "," + yCoord + "&zoom=" + zoom + "&size=" + imgSize + "x" + imgSize + "&key=" + apiKey;
-
-         using (WWW map = new WWW(googleURL))
-         {
-             yield return map;
-
-             if (map.error != null)
-             {
-                 Debug.LogError("Map Error:" + map.error);
-             }
-
-             locationImage.texture = map.texture;
-         }
-     }*/
 
 
     IEnumerator LoadMap()

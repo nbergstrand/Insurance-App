@@ -10,6 +10,7 @@ public class Case
     public string name;
     public string date;
     public string location;
+    public RawImage locationImage;
     public string locationNotes;
     public RawImage photo;
     public string photoNotes;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 public class CreateCasePanel : MonoBehaviour, IPanel
 {
     
-    public InputField firstName, lastName;
+    public InputField firstName, lastName, date;
 
     [SerializeField]
     GameObject _nextPanel;
@@ -16,7 +17,7 @@ public class CreateCasePanel : MonoBehaviour, IPanel
 
     public void ProcessInfo()
     {
-        if(string.IsNullOrEmpty(firstName.text) || string.IsNullOrEmpty(lastName.text))
+        if(string.IsNullOrEmpty(firstName.text) || string.IsNullOrEmpty(lastName.text) || string.IsNullOrEmpty(date.text))
         {
             _errorText.gameObject.SetActive(true);
             
@@ -33,5 +34,7 @@ public class CreateCasePanel : MonoBehaviour, IPanel
     void OnEnable()
     {        
         _caseNumberText.text = "CASE NUMBER: " + UIManager.Instance.activeCase.caseNumber;
+        date.text = "" + DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year;
+        UIManager.Instance.activeCase.date = date.text;
     }
 }
