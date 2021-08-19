@@ -24,9 +24,18 @@ public class OverviewPanel : MonoBehaviour, IPanel
         caseNumberText.text = "CASE NUMBER: " + UIManager.Instance.activeCase.caseNumber;
         nameText.text = "NAME: " + UIManager.Instance.activeCase.name.ToUpper();
         dateText.text = "DATE: " + UIManager.Instance.activeCase.date;
-        locationImage.texture = UIManager.Instance.activeCase.locationImage.texture;
+
+        Texture2D tempLocationTex = new Texture2D(1,1);
+        tempLocationTex.LoadImage(UIManager.Instance.activeCase.locationImage);
+               
+
+        locationImage.texture = (Texture)tempLocationTex;
         locationNotesText.text = "LOCATION NOTES: \n" + UIManager.Instance.activeCase.locationNotes;
-        photoImage.texture = UIManager.Instance.activeCase.photo.texture;
+
+        Texture2D tempPhotoTex = new Texture2D(1, 1);
+        tempPhotoTex.LoadImage(UIManager.Instance.activeCase.photo);
+
+        photoImage.texture = tempPhotoTex;
         photoNotes.text = "PHOTO NOTES: \n" + UIManager.Instance.activeCase.photoNotes;
     }
 }

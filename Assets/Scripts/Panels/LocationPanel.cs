@@ -30,6 +30,8 @@ public class LocationPanel : MonoBehaviour, IPanel
     [SerializeField]
     string googleURL = "https://maps.googleapis.com/maps/api/staticmap?";
 
+    Texture2D texture;
+
         
     public IEnumerator Start()
     {
@@ -75,12 +77,15 @@ public class LocationPanel : MonoBehaviour, IPanel
 
     public void ProcessInfo()
     {
+                
+        UIManager.Instance.activeCase.locationNotes = notesField.text;
+        
+        
+        UIManager.Instance.activeCase.locationImage = texture.EncodeToPNG();
 
-            
-            UIManager.Instance.activeCase.locationNotes = notesField.text;
-            UIManager.Instance.activeCase.locationImage = locationImage;
-            _nextPanel.SetActive(true);
-            this.gameObject.SetActive(false);
+
+        _nextPanel.SetActive(true);
+        this.gameObject.SetActive(false);
         
     }
 
@@ -100,6 +105,10 @@ public class LocationPanel : MonoBehaviour, IPanel
             }
 
             locationImage.texture = DownloadHandlerTexture.GetContent(map);
+
+            texture = (Texture2D)locationImage.texture;
+
+
         }
     }
 

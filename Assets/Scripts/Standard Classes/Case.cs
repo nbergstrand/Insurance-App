@@ -9,10 +9,9 @@ public class Case
     public string caseNumber;
     public string name;
     public string date;
-    public string location;
-    public RawImage locationImage;
+    public byte[] locationImage;
     public string locationNotes;
-    public RawImage photo;
+    public byte[] photo; 
     public string photoNotes;
 
 }

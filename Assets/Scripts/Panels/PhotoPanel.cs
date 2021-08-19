@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class PhotoPanel : MonoBehaviour, IPanel
 {
     [SerializeField]
@@ -20,6 +21,8 @@ public class PhotoPanel : MonoBehaviour, IPanel
     [SerializeField]
     InputField notesField;
 
+    Texture2D photoTexture;
+
     void OnEnable()
     {
         _caseNumberText.text = "CASE NUMBER: " + UIManager.Instance.activeCase.caseNumber;
@@ -30,7 +33,7 @@ public class PhotoPanel : MonoBehaviour, IPanel
        
 
         UIManager.Instance.activeCase.photoNotes = notesField.text;
-        UIManager.Instance.activeCase.photo = photoImage;
+        UIManager.Instance.activeCase.photo = photoTexture.EncodeToPNG();
 
         _nextPanel.SetActive(true);
         this.gameObject.SetActive(false);
@@ -44,13 +47,15 @@ public class PhotoPanel : MonoBehaviour, IPanel
 
     private void TakePicture(int maxSize)
     {
+        
+
         NativeCamera.Permission permission = NativeCamera.TakePicture((path) =>
         {
             Debug.Log("Image path: " + path);
             if (path != null)
             {
                 // Create a Texture2D from the captured image
-                Texture2D texture = NativeCamera.LoadImageAtPath(path, maxSize);
+                Texture2D texture = NativeCamera.LoadImageAtPath(path, maxSize, false);
                 if (texture == null)
                 {
                     Debug.Log("Couldn't load texture from " + path);
@@ -58,7 +63,10 @@ public class PhotoPanel : MonoBehaviour, IPanel
                 }
 
                 photoImage.texture = texture;
+                photoTexture = texture;
                 photoImage.gameObject.SetActive(true);
+
+
             }
         }, maxSize);
 
