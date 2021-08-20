@@ -9,6 +9,7 @@ public class SearchCasePanel : MonoBehaviour, IPanel
 
     public void ProcessInfo()
     {
-       
+        UIManager.Instance.LoadData(CaseNumberInput.text);
     }
 }
+

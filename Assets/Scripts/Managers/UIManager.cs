@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class UIManager : MonoBehaviour
 {
@@ -22,6 +24,11 @@ public class UIManager : MonoBehaviour
     #endregion
 
     public Case activeCase;
+    public Text caseNotFoundText;
+
+    public GameObject searchPanel;
+    public GameObject overViewPanel;
+
 
     public void CreateNewCase()
     {
@@ -42,21 +49,38 @@ public class UIManager : MonoBehaviour
         submittedCase.photoNotes = activeCase.photoNotes;
         submittedCase.locationImage = activeCase.locationImage;
         submittedCase.photo = activeCase.photo;
-
-
-        /*
-          public string date;
-         public string location;
-            public RawImage locationImage;
-         public string locationNotes;
-            public RawImage photo;
-    public string photoNotes;
-         */
-
-
+        
         BinaryFormatter formatter = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "case#" + submittedCase.caseNumber + ".dat");
+        FileStream file = File.Create(Application.persistentDataPath + "/case #" + submittedCase.caseNumber + ".dat");
         formatter.Serialize(file, submittedCase);
         file.Close();
+    }
+
+    public void LoadData(string caseNumber)
+    {
+        if(File.Exists(Application.persistentDataPath + "/case #" + caseNumber + ".dat"))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/case #" + caseNumber + ".dat", FileMode.Open);
+            Case loadedCase = (Case)formatter.Deserialize(file);
+            file.Close();
+
+            activeCase.caseNumber = loadedCase.caseNumber;
+            activeCase.name = loadedCase.name;
+            activeCase.date = loadedCase.date;
+            activeCase.locationNotes = loadedCase.locationNotes;
+            activeCase.photoNotes = loadedCase.photoNotes;
+            activeCase.locationImage = loadedCase.locationImage;
+            activeCase.photo = loadedCase.photo;
+
+            searchPanel.SetActive(false);
+            overViewPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Case not found");
+            caseNotFoundText.gameObject.SetActive(true);
+        }
+        
     }
 }
