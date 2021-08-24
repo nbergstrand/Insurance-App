@@ -105,7 +105,7 @@ public class LocationPanel : MonoBehaviour, IPanel
             }
 
             locationImage.texture = DownloadHandlerTexture.GetContent(map);
-
+                       
             texture = (Texture2D)locationImage.texture;
 
 
