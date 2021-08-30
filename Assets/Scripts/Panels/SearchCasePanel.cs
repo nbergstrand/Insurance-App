@@ -5,11 +5,17 @@ using UnityEngine.UI;
 
 public class SearchCasePanel : MonoBehaviour, IPanel
 {
-    public InputField CaseNumberInput;
+    public InputField caseNumberInput;
 
     public void ProcessInfo()
     {
-        UIManager.Instance.LoadData(CaseNumberInput.text);
+        // UIManager.Instance.LoadData(CaseNumberInput.text);
+        AWSManager.Instance.LoadFromS3(caseNumberInput.text, () =>
+        {
+            UIManager.Instance.OpenOverview();
+
+        });
+        
     }
 }
 

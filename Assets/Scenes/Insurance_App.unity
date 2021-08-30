@@ -688,14 +688,14 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 143833322}
   m_TextComponent: {fileID: 1025986382}
   m_Placeholder: {fileID: 751622537}
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 0
-  m_CharacterLimit: 0
+  m_CharacterValidation: 1
+  m_CharacterLimit: 4
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -5885,6 +5885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e7afb5759870d4a9dff4ba480a28f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  S3Region: eu-west-2
 --- !u!4 &1465240020
 Transform:
   m_ObjectHideFlags: 0
@@ -7714,7 +7715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a84856fdd381654e9c080a82c0c084b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CaseNumberInput: {fileID: 143833321}
+  caseNumberInput: {fileID: 143833321}
 --- !u!1 &1964414505
 GameObject:
   m_ObjectHideFlags: 0

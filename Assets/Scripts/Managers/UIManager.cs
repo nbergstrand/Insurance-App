@@ -40,15 +40,18 @@ public class UIManager : MonoBehaviour
 
     public void Submit()
     {
-        
-        
+                
         BinaryFormatter formatter = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/case #" + activeCase.caseNumber + ".dat");
+        string filePath = Application.persistentDataPath + "/case #" + activeCase.caseNumber + ".dat";
+        FileStream file = File.Create(filePath);
         formatter.Serialize(file, activeCase);
         file.Close();
+
+        AWSManager.Instance.UploadToS3(filePath, "Case #" + activeCase.caseNumber);
+
     }
 
-    public void LoadData(string caseNumber)
+    public void LoadDataLocally(string caseNumber)
     {
         if(File.Exists(Application.persistentDataPath + "/case #" + caseNumber + ".dat"))
         {
@@ -67,4 +70,11 @@ public class UIManager : MonoBehaviour
         }
         
     }
+
+    public void OpenOverview()
+    {
+        searchPanel.SetActive(false);
+        overViewPanel.SetActive(true);
+    }
+   
 }
