@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
+
 
 public class CreateCasePanel : MonoBehaviour, IPanel
 {
@@ -17,6 +19,8 @@ public class CreateCasePanel : MonoBehaviour, IPanel
 
     public void ProcessInfo()
     {
+       
+
         if(string.IsNullOrEmpty(firstName.text) || string.IsNullOrEmpty(lastName.text) || string.IsNullOrEmpty(date.text))
         {
             _errorText.gameObject.SetActive(true);
@@ -37,4 +41,11 @@ public class CreateCasePanel : MonoBehaviour, IPanel
         date.text = "" + DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year;
         UIManager.Instance.activeCase.date = date.text;
     }
+
+
+    public void ButtonClicked()
+    {
+        Analytics.CustomEvent("Clicked on Create case");
+    }
+
 }

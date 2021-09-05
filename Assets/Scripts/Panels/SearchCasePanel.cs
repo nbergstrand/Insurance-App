@@ -9,7 +9,7 @@ public class SearchCasePanel : MonoBehaviour, IPanel
 
     public void ProcessInfo()
     {
-        // UIManager.Instance.LoadData(CaseNumberInput.text);
+        // UIManager.Instance.LoadDataLocally(CaseNumberInput.text);
         AWSManager.Instance.LoadFromS3(caseNumberInput.text, () =>
         {
             UIManager.Instance.OpenOverview();
